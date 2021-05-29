@@ -4,6 +4,7 @@ using System.Collections;
 public class MazeLoader : MonoBehaviour {
 	public int mazeRows, mazeColumns;
 	public GameObject wall;
+	public GameObject champions;
 	public float size = 2f;
 
 	private MazeCell[,] mazeCells;
@@ -14,6 +15,8 @@ public class MazeLoader : MonoBehaviour {
 
 		MazeAlgorithm ma = new HuntAndKillMazeAlgorithm (mazeCells);
 		ma.CreateMaze ();
+
+		//champions = new GameObject();
 	}
 	
 	// Update is called once per frame
@@ -25,13 +28,27 @@ public class MazeLoader : MonoBehaviour {
 		mazeCells = new MazeCell[mazeRows,mazeColumns];
 
 		for (int r = 0; r < mazeRows; r++) {
-			for (int c = 0; c < mazeColumns; c++) {
-				mazeCells [r, c] = new MazeCell ();
+			for (int c = 0; c < mazeColumns; c++)
+			{
+				mazeCells[r, c] = new MazeCell();
 
 				// For now, use the same wall object for the floor!
-				mazeCells [r, c] .floor = Instantiate (wall, new Vector3 (r*size, -(size/2f), c*size), Quaternion.identity) as GameObject;
-				mazeCells [r, c] .floor.name = "Floor " + r + "," + c;
-				mazeCells [r, c] .floor.transform.Rotate (Vector3.right, 90f);
+				if (r == mazeRows - 1 && c == mazeColumns - 1)
+				{
+					mazeCells[r, c].floor = Instantiate(champions, new Vector3(r * size, 0.25f + -(size / 2f), c * size), Quaternion.identity) as GameObject;
+					mazeCells[r, c].floor.gameObject.AddComponent<BoxCollider>();
+					mazeCells[r, c].floor.gameObject.GetComponent<Collider>().isTrigger = true;
+					Win win = mazeCells[r, c].floor.gameObject.AddComponent<Win>();
+
+
+					mazeCells[r, c].floor.name = "Trophy " + r + "," + c;
+					//mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
+				}
+
+				mazeCells[r, c].floor = Instantiate(wall, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity) as GameObject;
+				mazeCells[r, c].floor.name = "Floor " + r + "," + c;
+				mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
+
 
 				if (c == 0) {
 					mazeCells[r,c].westWall = Instantiate (wall, new Vector3 (r*size, 0, (c*size) - (size/2f)), Quaternion.identity) as GameObject;
