@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour
 {
-    public void PlayGame()
+    public void RegularGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("ChooseDifficulty");
     }
 }

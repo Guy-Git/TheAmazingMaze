@@ -17,6 +17,7 @@ public class MazeLoader : MonoBehaviour {
 		ma.CreateMaze ();
 
 		//champions = new GameObject();
+		//Properties properties = new Properties();
 	}
 	
 	// Update is called once per frame
@@ -24,6 +25,10 @@ public class MazeLoader : MonoBehaviour {
 	}
 
 	private void InitializeMaze() {
+
+		mazeRows = Properties.rows;
+		Debug.Log(mazeRows);
+		mazeColumns = Properties.cols;
 
 		mazeCells = new MazeCell[mazeRows,mazeColumns];
 
