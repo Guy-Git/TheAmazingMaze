@@ -9,7 +9,6 @@ public class Lose : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        losePanel = GameObject.Find("Canvas").transform.Find("losePanel").gameObject;
     }
 
     // Update is called once per frame
@@ -20,6 +19,7 @@ public class Lose : MonoBehaviour
     
     void OnCollisionEnter(Collision collision)
     {
+        losePanel = GameObject.Find("Canvas").transform.Find("losePanel").gameObject;
         losePanel.SetActive(true);
         FirstPersonController fpc = GameObject.Find("FirstPersonController").GetComponent<FirstPersonController>();
         fpc.cameraCanMove = false;
@@ -27,5 +27,7 @@ public class Lose : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         Debug.Log("LOOSER!");
+
     }
+
 }

@@ -25,9 +25,11 @@ public class MazeLoader : MonoBehaviour {
 
 		MazeAlgorithm ma = new HuntAndKillMazeAlgorithm (mazeCells);
 		ma.CreateMaze ();
+		Timer timer = new Timer();
 
 		//champions = new GameObject();
 		//Properties properties = new Properties();
+		
 	}
 	
 	// Update is called once per frame

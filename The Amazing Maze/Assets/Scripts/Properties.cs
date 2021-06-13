@@ -6,4 +6,6 @@ public class Properties
 {
     public static int rows;
     public static int cols;
+    public static int chosenMode;
+    public static int time;
 }
