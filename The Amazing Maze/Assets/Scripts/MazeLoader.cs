@@ -5,6 +5,7 @@ public class MazeLoader : MonoBehaviour {
 	public int mazeRows, mazeColumns;
 	public GameObject wall;
 	public GameObject champions;
+	public GameObject SpikeFloor;
 	public float size = 2f;
 
 	private MazeCell[,] mazeCells;
@@ -12,6 +13,15 @@ public class MazeLoader : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		InitializeMaze ();
+
+		int r = mazeRows - 1;
+		int c = mazeColumns - 1;
+		mazeCells[r, c].floor = Instantiate(champions, new Vector3(r * size, 0.25f + -(size / 2f), c * size), Quaternion.identity) as GameObject;
+		mazeCells[r, c].floor.gameObject.AddComponent<BoxCollider>();
+		mazeCells[r, c].floor.gameObject.GetComponent<Collider>().isTrigger = true;
+		Win win = mazeCells[r, c].floor.gameObject.AddComponent<Win>();
+
+		mazeCells[r, c].floor.name = "Trophy " + r + "," + c;
 
 		MazeAlgorithm ma = new HuntAndKillMazeAlgorithm (mazeCells);
 		ma.CreateMaze ();
@@ -22,6 +32,7 @@ public class MazeLoader : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		mazeCells[mazeRows - 1, mazeColumns - 1].floor.gameObject.transform.Rotate(0, 1, 0, Space.Self);
 	}
 
 	private void InitializeMaze() {
@@ -31,29 +42,29 @@ public class MazeLoader : MonoBehaviour {
 		mazeColumns = Properties.cols;
 
 		mazeCells = new MazeCell[mazeRows,mazeColumns];
+		//Random rnd = new Random();
 
 		for (int r = 0; r < mazeRows; r++) {
 			for (int c = 0; c < mazeColumns; c++)
 			{
-				mazeCells[r, c] = new MazeCell();
 
-				// For now, use the same wall object for the floor!
-				if (r == mazeRows - 1 && c == mazeColumns - 1)
+				int putSpike = Random.Range(0, 7);
+
+				if ((r != 0 && c != 0) && (r != mazeRows - 1 && c != mazeColumns - 1) && putSpike == 0)
 				{
-					mazeCells[r, c].floor = Instantiate(champions, new Vector3(r * size, 0.25f + -(size / 2f), c * size), Quaternion.identity) as GameObject;
-					mazeCells[r, c].floor.gameObject.AddComponent<BoxCollider>();
-					mazeCells[r, c].floor.gameObject.GetComponent<Collider>().isTrigger = true;
-					Win win = mazeCells[r, c].floor.gameObject.AddComponent<Win>();
-
-
-					mazeCells[r, c].floor.name = "Trophy " + r + "," + c;
-					//mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
+					mazeCells[r, c] = new MazeCell();
+					mazeCells[r, c].floor = Instantiate(SpikeFloor, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity) as GameObject;
+					mazeCells[r, c].floor.name = "Spike Floor " + r + "," + c;
+					mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
 				}
 
-				mazeCells[r, c].floor = Instantiate(wall, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity) as GameObject;
-				mazeCells[r, c].floor.name = "Floor " + r + "," + c;
-				mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
-
+				else
+				{
+					mazeCells[r, c] = new MazeCell();
+					mazeCells[r, c].floor = Instantiate(wall, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity) as GameObject;
+					mazeCells[r, c].floor.name = "Floor " + r + "," + c;
+					mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
+				}
 
 				if (c == 0) {
 					mazeCells[r,c].westWall = Instantiate (wall, new Vector3 (r*size, 0, (c*size) - (size/2f)), Quaternion.identity) as GameObject;
