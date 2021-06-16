@@ -7,13 +7,14 @@ public class MazeLoader : MonoBehaviour {
 	public GameObject champions;
 	public GameObject SpikeFloor;
 	public float size = 2f;
+	//public bool pPress; 
 
 	private MazeCell[,] mazeCells;
 
 	// Use this for initialization
 	void Start () {
 		InitializeMaze ();
-
+		Properties.pPress = false;
 		int r = mazeRows - 1;
 		int c = mazeColumns - 1;
 		mazeCells[r, c].floor = Instantiate(champions, new Vector3(r * size, 0.25f + -(size / 2f), c * size), Quaternion.identity) as GameObject;
@@ -25,8 +26,8 @@ public class MazeLoader : MonoBehaviour {
 
 		MazeAlgorithm ma = new HuntAndKillMazeAlgorithm (mazeCells);
 		ma.CreateMaze ();
-		Timer timer = new Timer();
-
+		
+		
 		//champions = new GameObject();
 		//Properties properties = new Properties();
 		
@@ -35,6 +36,30 @@ public class MazeLoader : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		mazeCells[mazeRows - 1, mazeColumns - 1].floor.gameObject.transform.Rotate(0, 1, 0, Space.Self);
+		if(Input.GetKeyDown(KeyCode.P))
+        {
+			GameObject pausePanel = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
+			FirstPersonController fpc = GameObject.Find("FirstPersonController").GetComponent<FirstPersonController>();
+			if(!Properties.pPress)
+            {
+				Properties.pPress = true;			
+				pausePanel.SetActive(true);
+				fpc.cameraCanMove = false;
+				fpc.playerCanMove = false;
+				Cursor.lockState = CursorLockMode.None;	
+            }
+            else
+            {
+				Properties.pPress = false;
+				pausePanel.SetActive(false);
+				fpc.cameraCanMove = true;
+				fpc.playerCanMove = true;
+				Cursor.lockState = CursorLockMode.Locked;
+			}
+
+        }
+	
+		
 	}
 
 	private void InitializeMaze() {
