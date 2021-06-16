@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
 {
     Camera playerCamera;
     public Camera clueCam;
+    public GameObject sphere;
 
     Time time;
     bool timeIsRunning;
@@ -37,7 +38,7 @@ public class PauseMenu : MonoBehaviour
         else if (Properties.rows == 20)
             height = 120;
 
-
+        sphere.SetActive(true);
         clueCam.transform.eulerAngles = new Vector3(90, 0, 0);
         clueCam.transform.position = new Vector3(mid, height, mid);
 
@@ -90,5 +91,6 @@ public class PauseMenu : MonoBehaviour
         fpc.playerCanMove = true;
         Cursor.lockState = CursorLockMode.Locked;
         Properties.pPress = false;
+        sphere.SetActive(false);
     }
 }

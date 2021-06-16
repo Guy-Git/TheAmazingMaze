@@ -1431,6 +1431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clueCam: {fileID: 917118843}
+  sphere: {fileID: 1839468420}
 --- !u!1 &1042164552
 GameObject:
   m_ObjectHideFlags: 0
@@ -1578,6 +1579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clueCam: {fileID: 917118843}
+  sphere: {fileID: 0}
 --- !u!1 &1137219444
 GameObject:
   m_ObjectHideFlags: 0
@@ -2436,7 +2438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1839468421
 Transform:
   m_ObjectHideFlags: 0
