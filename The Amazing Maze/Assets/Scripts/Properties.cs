@@ -9,4 +9,5 @@ public class Properties
     public static int chosenMode;
     public static int time;
     public static bool pPress;
+    public static int points;
 }

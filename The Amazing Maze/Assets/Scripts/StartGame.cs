@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour
 {
-    public GameObject wall;
+    //public GameObject wall;
 
     public void RegularGame()
     {
         SceneManager.LoadScene("ChooseDifficulty");
         Properties.chosenMode = 0;
-        Debug.Log(wall.GetComponent<Collider>().bounds.size);
+        // Debug.Log(wall.GetComponent<Collider>().bounds.size);
 
     }
 
