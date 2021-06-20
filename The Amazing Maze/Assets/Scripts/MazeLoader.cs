@@ -21,11 +21,11 @@ public class MazeLoader : MonoBehaviour {
 
 		int r = mazeRows - 1;
 		int c = mazeColumns - 1;
-		mazeCells[r, c].floor = Instantiate(champions, new Vector3(r * size, 0.25f + -(size / 2f), c * size), Quaternion.identity) as GameObject;
+		mazeCells[r, c].floor = Instantiate(champions, new Vector3(r * size, 2f + -(size / 2f), c * size), Quaternion.identity) as GameObject;
 		mazeCells[r, c].floor.gameObject.AddComponent<BoxCollider>();
 		mazeCells[r, c].floor.gameObject.GetComponent<Collider>().isTrigger = true;
-		Win win = mazeCells[r, c].floor.gameObject.AddComponent<Win>();
-
+		mazeCells[r, c].floor.gameObject.AddComponent<Win>();
+	
 		mazeCells[r, c].floor.name = "Trophy " + r + "," + c;
 
 		MazeAlgorithm ma = new HuntAndKillMazeAlgorithm (mazeCells);
@@ -65,7 +65,6 @@ public class MazeLoader : MonoBehaviour {
 
         }
 	
-		
 	}
 
 	private void InitializeMaze() {
@@ -98,6 +97,7 @@ public class MazeLoader : MonoBehaviour {
 					mazeCells[r, c].floor.name = "Floor " + r + "," + c;
 					mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
 				}
+
 				if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1))
 				{
 					coin = Instantiate(Coin, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity);

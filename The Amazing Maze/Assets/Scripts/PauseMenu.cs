@@ -8,6 +8,8 @@ public class PauseMenu : MonoBehaviour
     Camera playerCamera;
     public Camera clueCam;
     public GameObject sphere;
+    public Light light;
+    Quaternion lightBackup;
 
     Time time;
     bool timeIsRunning;
@@ -20,6 +22,10 @@ public class PauseMenu : MonoBehaviour
     public void Clue()
     {
         playerCamera = GameObject.Find("PlayerCamera").GetComponent<Camera>();
+        lightBackup = new Quaternion();
+        lightBackup = light.transform.rotation;
+
+        light.transform.eulerAngles = new Vector3(90, 0, 0);
 
 
         clueCam.enabled = true;
@@ -81,6 +87,8 @@ public class PauseMenu : MonoBehaviour
         FirstPersonController fpc = GameObject.Find("FirstPersonController").GetComponent<FirstPersonController>();
         playerCamera.enabled = true;
         clueCam.enabled = false;
+
+        light.transform.rotation = lightBackup;
         
         GameObject pausePanel = GameObject.Find("PauseMenu").gameObject;
 
