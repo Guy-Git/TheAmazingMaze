@@ -20,4 +20,15 @@ public class StartGame : MonoBehaviour
         SceneManager.LoadScene("ChooseDifficulty");
         Properties.chosenMode = 1;
     }
+
+    public void ShowScoreboard()
+    {
+        SceneManager.LoadScene("");
+    }
+
+    public void Controls()
+    {
+        SceneManager.LoadScene("Controls");
+    } 
+
 }

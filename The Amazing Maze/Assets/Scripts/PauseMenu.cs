@@ -59,7 +59,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Quit()
     {
-        SceneManager.LoadScene("menu");
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void Update()

@@ -355,7 +355,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 141894842}
         m_TargetAssemblyTypeName: StartGame, Assembly-CSharp
-        m_MethodName: TimedGame
+        m_MethodName: Controls
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -769,7 +769,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 516816358}
         m_TargetAssemblyTypeName: StartGame, Assembly-CSharp
-        m_MethodName: TimedGame
+        m_MethodName: ShowScoreboard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

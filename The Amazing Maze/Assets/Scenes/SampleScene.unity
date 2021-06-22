@@ -2470,11 +2470,14 @@ MonoBehaviour:
   mazeRows: 5
   mazeColumns: 5
   wall: {fileID: 101274, guid: 2a571ace6952b154ca2ff06b0540f264, type: 3}
-  champions: {fileID: 919132149155446097, guid: 73a0248fab047764cb793fa4527a2494, type: 3}
+  championsObj: {fileID: 919132149155446097, guid: 73a0248fab047764cb793fa4527a2494, type: 3}
   SpikeFloor: {fileID: 6803101755772781659, guid: 1bbb1ea60e4ff1a449daf993a10a77ac, type: 3}
+  ChessFloor: {fileID: 6081756490330346849, guid: e10148ccb8ef75140b01ba4a600f10ef, type: 3}
+  FallWall: {fileID: 8334873996801649308, guid: f00c9d678c75b7e4695e8e65b63e025f, type: 3}
   size: 5.5
   Coin: {fileID: 919132149155446097, guid: dd227926a6d2845309fe65bd946778c9, type: 3}
   points: {fileID: 226005229}
+  trophy: {fileID: 0}
 --- !u!4 &1746754285
 Transform:
   m_ObjectHideFlags: 0

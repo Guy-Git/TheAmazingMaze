@@ -5,11 +5,14 @@ using UnityEngine.UI;
 public class MazeLoader : MonoBehaviour {
 	public int mazeRows, mazeColumns;
 	public GameObject wall;
-	public GameObject champions;
+	public GameObject championsObj;
 	public GameObject SpikeFloor;
+	public GameObject ChessFloor;
+	public GameObject FallWall;
 	public float size = 2f;
 	public GameObject Coin;
 	public Text points;
+	public GameObject trophy;
 
 	private MazeCell[,] mazeCells;
 
@@ -21,12 +24,12 @@ public class MazeLoader : MonoBehaviour {
 
 		int r = mazeRows - 1;
 		int c = mazeColumns - 1;
-		mazeCells[r, c].floor = Instantiate(champions, new Vector3(r * size, 2f + -(size / 2f), c * size), Quaternion.identity) as GameObject;
-		mazeCells[r, c].floor.gameObject.AddComponent<BoxCollider>();
-		mazeCells[r, c].floor.gameObject.GetComponent<Collider>().isTrigger = true;
-		mazeCells[r, c].floor.gameObject.AddComponent<Win>();
-	
-		mazeCells[r, c].floor.name = "Trophy " + r + "," + c;
+		trophy = Instantiate(championsObj, new Vector3(r * size, 2f + -(size / 2f), c * size), Quaternion.identity) as GameObject;
+		trophy.gameObject.AddComponent<BoxCollider>();
+		trophy.gameObject.GetComponent<Collider>().isTrigger = true;
+		trophy.gameObject.AddComponent<Win>();
+
+		trophy.name = "Trophy " + r + "," + c;
 
 		MazeAlgorithm ma = new HuntAndKillMazeAlgorithm (mazeCells);
 		ma.CreateMaze ();
@@ -39,7 +42,7 @@ public class MazeLoader : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		mazeCells[mazeRows - 1, mazeColumns - 1].floor.gameObject.transform.Rotate(0, 1, 0, Space.Self);
+		trophy.gameObject.transform.Rotate(0, 1, 0, Space.Self);
 
 		points.text = Properties.points.ToString();
 		if(Input.GetKeyDown(KeyCode.P))
@@ -70,17 +73,23 @@ public class MazeLoader : MonoBehaviour {
 	private void InitializeMaze() {
 
 		mazeRows = Properties.rows;
-		Debug.Log(mazeRows);
 		mazeColumns = Properties.cols;
 		GameObject coin;
 		mazeCells = new MazeCell[mazeRows,mazeColumns];
 		//Random rnd = new Random();
+		GameObject lowCeiling;
+		GameObject chessFloor;
+		GameObject fallWall;
+
+
 
 		for (int r = 0; r < mazeRows; r++) {
 			for (int c = 0; c < mazeColumns; c++)
 			{
 
 				int putSpike = Random.Range(0, 7);
+				int putChessFloor = Random.Range(0, 7);
+				int putLowCeiling = Random.Range(0, 7);
 
 				if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike == 0)
 				{
@@ -89,6 +98,31 @@ public class MazeLoader : MonoBehaviour {
 					mazeCells[r, c].floor.name = "Spike Floor " + r + "," + c;
 					mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
 				}
+
+				else if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike != 0 && putLowCeiling != 0 && putChessFloor == 0)
+				{
+					// Chess Floor:
+					mazeCells[r, c] = new MazeCell();
+					mazeCells[r, c].floor = Instantiate(ChessFloor, new Vector3(r * size - 1.375f, -(size / 2f), c * size - 1.375f), Quaternion.identity);
+					mazeCells[r, c].floor.name = "Chess Floor " + r + "," + c;
+					mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
+
+					// Fall Wall:
+					// Floor - 
+					fallWall = Instantiate(FallWall, new Vector3(r * size, -(size / 2f)-size, c * size), Quaternion.identity);
+					fallWall.transform.Rotate(Vector3.right, 90f);
+					// West - 
+					fallWall = Instantiate(FallWall, new Vector3(r * size, -size, (c * size) - (size / 2f)), Quaternion.identity);
+					// East - 
+					fallWall = Instantiate(FallWall, new Vector3(r * size, -size, (c * size) + (size / 2f)), Quaternion.identity);
+					// North - 
+					fallWall = Instantiate(FallWall, new Vector3((r * size) - (size / 2f), -size, c * size), Quaternion.identity);
+					fallWall.transform.Rotate(Vector3.up * 90f);
+					// South - 
+					fallWall = Instantiate(FallWall, new Vector3((r * size) + (size / 2f), -size, c * size), Quaternion.identity);
+					fallWall.transform.Rotate(Vector3.up * 90f);
+				}
+
 
 				else
 				{
@@ -104,6 +138,13 @@ public class MazeLoader : MonoBehaviour {
 					coin.gameObject.AddComponent<BoxCollider>();
 					coin.gameObject.GetComponent<Collider>().isTrigger = true;
 					coin.gameObject.AddComponent<CoinBehaviour>();
+				}
+
+
+				if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike != 0 && putLowCeiling == 0)
+				{
+					lowCeiling = Instantiate(wall, new Vector3(r * size, -0.3f, c * size), Quaternion.identity);
+					lowCeiling.transform.Rotate(Vector3.right, 90f);
 				}
 
 				if (c == 0) {

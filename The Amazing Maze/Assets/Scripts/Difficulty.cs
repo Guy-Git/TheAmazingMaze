@@ -9,7 +9,6 @@ public class Difficulty : MonoBehaviour
 
     public void Easy()
     {
-        Debug.Log("Kaki");
         SceneManager.LoadScene("SampleScene");
         //properties = new Properties();
         if(Properties.chosenMode == 0)
@@ -24,8 +23,6 @@ public class Difficulty : MonoBehaviour
             Properties.time = 600;
         }
 
-
-        Debug.Log(Properties.cols);
     }
 
     public void Medium()
@@ -44,7 +41,6 @@ public class Difficulty : MonoBehaviour
 
     public void Hard()
     {
-        Debug.Log("Kaki");
         SceneManager.LoadScene("SampleScene");
         //properties = new Properties();
 
