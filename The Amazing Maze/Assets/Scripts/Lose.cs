@@ -38,8 +38,6 @@ public class Lose : MonoBehaviour
         fpc.playerCanMove = false;
         Cursor.lockState = CursorLockMode.None;
 
-        Debug.Log("LOOSER!");
-
     }
 
 }

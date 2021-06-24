@@ -20,7 +20,7 @@ public class Difficulty : MonoBehaviour
         {
             Properties.rows = 10;
             Properties.cols = 10;
-            Properties.time = 600;
+            Properties.time = 300;
         }
 
     }
@@ -35,7 +35,7 @@ public class Difficulty : MonoBehaviour
 
         if (Properties.chosenMode == 1)
         {
-            Properties.time = 300;
+            Properties.time = 180;
         }
     }
 
@@ -49,7 +49,7 @@ public class Difficulty : MonoBehaviour
 
         if (Properties.chosenMode == 1)
         {
-            Properties.time = 120;
+            Properties.time = 90;
             Properties.rows = 10;
             Properties.cols = 10;
         }

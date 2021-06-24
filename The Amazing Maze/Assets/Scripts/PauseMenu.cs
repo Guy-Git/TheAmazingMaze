@@ -9,6 +9,8 @@ public class PauseMenu : MonoBehaviour
     public Camera clueCam;
     public GameObject sphere;
     public Light light;
+    public GameObject fpc;
+
     Quaternion lightBackup;
 
     Time time;
@@ -27,6 +29,9 @@ public class PauseMenu : MonoBehaviour
 
         light.transform.eulerAngles = new Vector3(90, 0, 0);
 
+
+        fpc.transform.position = new Vector3(fpc.transform.position.x, fpc.transform.position.y + 6f, fpc.transform.position.z);
+        fpc.GetComponent<Rigidbody>().useGravity = false;
 
         clueCam.enabled = true;
         playerCamera.enabled = false;
@@ -99,6 +104,8 @@ public class PauseMenu : MonoBehaviour
         fpc.playerCanMove = true;
         Cursor.lockState = CursorLockMode.Locked;
         Properties.pPress = false;
+        fpc.transform.position = new Vector3(fpc.transform.position.x, fpc.transform.position.y - 6f, fpc.transform.position.z);
+        fpc.GetComponent<Rigidbody>().useGravity = true;
         sphere.SetActive(false);
     }
 }

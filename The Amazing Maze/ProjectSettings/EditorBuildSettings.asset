@@ -9,12 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 2624a98fde1574a35bbd0cb9f616a6a4
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
     path: Assets/Scenes/ChooseDifficulty.unity
     guid: f2c026a90bad7a543899e23869a6c568
   - enabled: 1
+    path: Assets/Scenes/RegularScoreboard.unity
+    guid: 4dec87ecedad2354bacf3f55e9f65b5a
+  - enabled: 1
     path: Assets/Scenes/Controls.unity
     guid: 8fbd411766c49aa44925b0d068961be9
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/TimedScoreboard.unity
+    guid: 70a5e18ccd064b945bae904d98651621
   m_configObjects: {}

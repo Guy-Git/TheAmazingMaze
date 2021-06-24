@@ -5,12 +5,12 @@ using UnityEngine.UI;
 public class MazeLoader : MonoBehaviour {
 	public int mazeRows, mazeColumns;
 	public GameObject wall;
-	public GameObject championsObj;
 	public GameObject SpikeFloor;
 	public GameObject ChessFloor;
 	public GameObject FallWall;
 	public float size = 2f;
 	public GameObject Coin;
+	public GameObject Clock;
 	public Text points;
 	public GameObject trophy;
 
@@ -18,13 +18,17 @@ public class MazeLoader : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//PlayerPrefs.DeleteAll();
+		if (Properties.chosenMode == 1)
+			points.gameObject.SetActive(false);
+
 		InitializeMaze ();
 		Properties.pPress = false;
 		Properties.points = 0;
 
 		int r = mazeRows - 1;
 		int c = mazeColumns - 1;
-		trophy = Instantiate(championsObj, new Vector3(r * size, 2f + -(size / 2f), c * size), Quaternion.identity) as GameObject;
+		trophy = Instantiate(trophy, new Vector3(r * size, 2f + -(size / 2f), c * size), Quaternion.identity) as GameObject;
 		trophy.gameObject.AddComponent<BoxCollider>();
 		trophy.gameObject.GetComponent<Collider>().isTrigger = true;
 		trophy.gameObject.AddComponent<Win>();
@@ -75,6 +79,7 @@ public class MazeLoader : MonoBehaviour {
 		mazeRows = Properties.rows;
 		mazeColumns = Properties.cols;
 		GameObject coin;
+		GameObject collectableClock;
 		mazeCells = new MazeCell[mazeRows,mazeColumns];
 		//Random rnd = new Random();
 		GameObject lowCeiling;
@@ -90,6 +95,7 @@ public class MazeLoader : MonoBehaviour {
 				int putSpike = Random.Range(0, 7);
 				int putChessFloor = Random.Range(0, 7);
 				int putLowCeiling = Random.Range(0, 7);
+				int putClock = Random.Range(0, 8);
 
 				if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike == 0)
 				{
@@ -132,18 +138,37 @@ public class MazeLoader : MonoBehaviour {
 					mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
 				}
 
-				if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1))
+				if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && Properties.chosenMode == 0 && putLowCeiling != 0)
 				{
 					coin = Instantiate(Coin, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity);
 					coin.gameObject.AddComponent<BoxCollider>();
 					coin.gameObject.GetComponent<Collider>().isTrigger = true;
-					coin.gameObject.AddComponent<CoinBehaviour>();
+					coin.gameObject.AddComponent<CollectableBehaviour>();
 				}
+
+				if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && Properties.chosenMode == 1 && putClock == 0 && putLowCeiling != 0)
+				{
+					collectableClock = Instantiate(Clock, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity);
+					collectableClock.gameObject.AddComponent<BoxCollider>();
+					collectableClock.gameObject.GetComponent<Collider>().isTrigger = true;
+					collectableClock.gameObject.AddComponent<CollectableBehaviour>();
+				}
+
 
 
 				if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike != 0 && putLowCeiling == 0)
 				{
-					lowCeiling = Instantiate(wall, new Vector3(r * size, -0.3f, c * size), Quaternion.identity);
+					lowCeiling = Instantiate(wall, new Vector3(r * size, -0.6f, c * size), Quaternion.identity);
+					lowCeiling.transform.Rotate(Vector3.right, 90f);
+					lowCeiling = Instantiate(wall, new Vector3(r * size, 0f, c * size), Quaternion.identity);
+					lowCeiling.transform.Rotate(Vector3.right, 90f);
+					lowCeiling = Instantiate(wall, new Vector3(r * size, 0.6f, c * size), Quaternion.identity);
+					lowCeiling.transform.Rotate(Vector3.right, 90f);
+					lowCeiling = Instantiate(wall, new Vector3(r * size, 1.2f, c * size), Quaternion.identity);
+					lowCeiling.transform.Rotate(Vector3.right, 90f);
+					lowCeiling = Instantiate(wall, new Vector3(r * size, 1.8f, c * size), Quaternion.identity);
+					lowCeiling.transform.Rotate(Vector3.right, 90f);
+					lowCeiling = Instantiate(wall, new Vector3(r * size, 2.4f, c * size), Quaternion.identity);
 					lowCeiling.transform.Rotate(Vector3.right, 90f);
 				}
 

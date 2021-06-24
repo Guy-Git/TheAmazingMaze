@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     public Text timeText;
-    private float timeRemaining;
-    public bool timeIsRunning = false;
+    public static float timeRemaining;
+    public static bool timeIsRunning = false;
     public GameObject losePanel;
 
     // Start is called before the first frame update
@@ -26,32 +26,28 @@ public class Timer : MonoBehaviour
             timeIsRunning = true;
         }
             
-        
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(timeIsRunning)
+        if (timeIsRunning)
         {
-            if(timeRemaining > 0)
+            if (timeRemaining > 0)
             {
                 timeRemaining -= Time.deltaTime;
-                
+
             }
+
             else
-            {   
-                Debug.Log("kaki time");
+            {
                 timeRemaining = 0;
                 timeIsRunning = false;
                 timeEnded();
-
-
             }
+
             DisplayTime(timeRemaining);
         }
-
     }
     public void timeEnded()
     {
@@ -61,8 +57,6 @@ public class Timer : MonoBehaviour
         fpc.cameraCanMove = false;
         fpc.playerCanMove = false;
         Cursor.lockState = CursorLockMode.None;
-
-        Debug.Log("LOOSER!");
     }
 
     void DisplayTime(float timeToDisplay)

@@ -25,7 +25,8 @@ public class Win : MonoBehaviour
         fpc.cameraCanMove = false;
         fpc.playerCanMove = false;
         Cursor.lockState = CursorLockMode.None;
+        Timer.timeIsRunning = false;
 
-        Debug.Log("Win");
+        //Debug.Log("Win");
     }
 }

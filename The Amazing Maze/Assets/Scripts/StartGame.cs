@@ -21,9 +21,14 @@ public class StartGame : MonoBehaviour
         Properties.chosenMode = 1;
     }
 
-    public void ShowScoreboard()
+    public void RegularScoreboard()
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("RegularScoreboard");
+    }
+
+    public void TimedScoreboard()
+    {
+        SceneManager.LoadScene("TimedScoreboard");
     }
 
     public void Controls()
