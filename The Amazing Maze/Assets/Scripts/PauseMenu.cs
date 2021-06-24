@@ -28,8 +28,6 @@ public class PauseMenu : MonoBehaviour
         lightBackup = light.transform.rotation;
 
         light.transform.eulerAngles = new Vector3(90, 0, 0);
-
-
         fpc.transform.position = new Vector3(fpc.transform.position.x, fpc.transform.position.y + 6f, fpc.transform.position.z);
         fpc.GetComponent<Rigidbody>().useGravity = false;
 
