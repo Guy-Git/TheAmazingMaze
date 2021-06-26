@@ -11,81 +11,86 @@ public class TimedScoreboard : MonoBehaviour
     {
         ScoresContainer highscores = JsonUtility.FromJson<ScoresContainer>(PlayerPrefs.GetString("TimedHighscores"));
 
-        List<string> easyScores = highscores.easyScores;
-        List<string> mediumScores = highscores.mediumScores;
-        List<string> hardScores = highscores.hardScores;
-
-        easyScores = SortScores(easyScores);
-        easyScores.Reverse();
-
-        mediumScores = SortScores(mediumScores);
-        mediumScores.Reverse();
-
-        hardScores = SortScores(hardScores);
-        hardScores.Reverse();
-
-        for (int i = 0; i < 5; i++)
+        try
         {
-            try
-            {
-                float minutes = Mathf.FloorToInt(float.Parse(easyScores[i].Split()[1]) / 60);
-                float seconds = Mathf.FloorToInt(float.Parse(easyScores[i].Split()[1]) % 60);
+            List<string> easyScores = highscores.easyScores;
+            List<string> mediumScores = highscores.mediumScores;
+            List<string> hardScores = highscores.hardScores;
 
-                easyScores[i] = easyScores[i].Split()[0] + " " + string.Format("{0:00}:{1:00}", minutes, seconds);
+            easyScores = SortScores(easyScores);
+            easyScores.Reverse();
+
+            mediumScores = SortScores(mediumScores);
+            mediumScores.Reverse();
+
+            hardScores = SortScores(hardScores);
+            hardScores.Reverse();
+
+            for (int i = 0; i < 5; i++)
+            {
+                try
+                {
+                    float minutes = Mathf.FloorToInt(float.Parse(easyScores[i].Split()[1]) / 60);
+                    float seconds = Mathf.FloorToInt(float.Parse(easyScores[i].Split()[1]) % 60);
+
+                    easyScores[i] = easyScores[i].Split()[0] + " " + string.Format("{0:00}:{1:00}", minutes, seconds);
+                }
+
+                catch
+                {
+                    easyScores.Add("");
+                }
+
+                try
+                {
+                    float minutes = Mathf.FloorToInt(float.Parse(mediumScores[i].Split()[1]) / 60);
+                    float seconds = Mathf.FloorToInt(float.Parse(mediumScores[i].Split()[1]) % 60);
+
+                    mediumScores[i] = mediumScores[i].Split()[0] + " " + string.Format("{0:00}:{1:00}", minutes, seconds);
+                }
+
+                catch
+                {
+                    mediumScores.Add("");
+                }
+
+                try
+                {
+                    float minutes = Mathf.FloorToInt(float.Parse(hardScores[i].Split()[1]) / 60);
+                    float seconds = Mathf.FloorToInt(float.Parse(hardScores[i].Split()[1]) % 60);
+
+                    hardScores[i] = hardScores[i].Split()[0] + " " + string.Format("{0:00}:{1:00}", minutes, seconds);
+                }
+
+                catch
+                {
+                    hardScores.Add("");
+                }
             }
 
-            catch
-            {
-                easyScores.Add("");
-            }
+            scores[0].text = easyScores[0];
+            scores[1].text = easyScores[1];
+            scores[2].text = easyScores[2];
+            scores[3].text = easyScores[3];
+            scores[4].text = easyScores[4];
 
-            try
-            {
-                float minutes = Mathf.FloorToInt(float.Parse(mediumScores[i].Split()[1]) / 60);
-                float seconds = Mathf.FloorToInt(float.Parse(mediumScores[i].Split()[1]) % 60);
+            scores[5].text = mediumScores[0];
+            scores[6].text = mediumScores[1];
+            scores[7].text = mediumScores[2];
+            scores[8].text = mediumScores[3];
+            scores[9].text = mediumScores[4];
 
-                mediumScores[i] = mediumScores[i].Split()[0] + " " + string.Format("{0:00}:{1:00}", minutes, seconds);
-            }
-
-            catch
-            {
-                mediumScores.Add("");
-            }
-
-            try
-            {
-                float minutes = Mathf.FloorToInt(float.Parse(hardScores[i].Split()[1]) / 60);
-                float seconds = Mathf.FloorToInt(float.Parse(hardScores[i].Split()[1]) % 60);
-
-                hardScores[i] = hardScores[i].Split()[0] + " " + string.Format("{0:00}:{1:00}", minutes, seconds);
-            }
-
-            catch
-            {
-                hardScores.Add("");
-            }
+            scores[10].text = hardScores[0];
+            scores[11].text = hardScores[1];
+            scores[12].text = hardScores[2];
+            scores[13].text = hardScores[3];
+            scores[14].text = hardScores[4];
         }
 
-        scores[0].text = easyScores[0];
-        scores[1].text = easyScores[1];
-        scores[2].text = easyScores[2];
-        scores[3].text = easyScores[3];
-        scores[4].text = easyScores[4];
+        catch
+        {
 
-        scores[5].text = mediumScores[0];
-        scores[6].text = mediumScores[1];
-        scores[7].text = mediumScores[2];
-        scores[8].text = mediumScores[3];
-        scores[9].text = mediumScores[4];
-
-        scores[10].text = hardScores[0];
-        scores[11].text = hardScores[1];
-        scores[12].text = hardScores[2];
-        scores[13].text = hardScores[3];
-        scores[14].text = hardScores[4];
-
-
-
+        }
     }
 
     // Update is called once per frame

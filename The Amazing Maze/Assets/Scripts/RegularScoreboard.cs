@@ -12,72 +12,79 @@ public class RegularScoreboard : MonoBehaviour
     void Start()
     {
         ScoresContainer highscores = JsonUtility.FromJson<ScoresContainer>(PlayerPrefs.GetString("RegularHighscores"));
-        
-        List<string> easyScores = highscores.easyScores;
-        List<string> mediumScores = highscores.mediumScores;
-        List<string> hardScores = highscores.hardScores;
 
-        easyScores = SortScores(easyScores);
-        easyScores.Reverse(); 
-        
-        mediumScores = SortScores(mediumScores);
-        mediumScores.Reverse(); 
-        
-        hardScores = SortScores(hardScores);
-        hardScores.Reverse();
-
-        for (int i = 0; i < 5; i++)
+        try
         {
-            try
+            List<string> easyScores = highscores.easyScores;
+            List<string> mediumScores = highscores.mediumScores;
+            List<string> hardScores = highscores.hardScores;
+
+            easyScores = SortScores(easyScores);
+            easyScores.Reverse();
+
+            mediumScores = SortScores(mediumScores);
+            mediumScores.Reverse();
+
+            hardScores = SortScores(hardScores);
+            hardScores.Reverse();
+
+            for (int i = 0; i < 5; i++)
             {
-                string x = easyScores[i];
+                try
+                {
+                    string x = easyScores[i];
+                }
+
+                catch
+                {
+                    easyScores.Add("");
+                }
+
+                try
+                {
+                    string x = mediumScores[i];
+                }
+
+                catch
+                {
+                    mediumScores.Add("");
+                }
+
+                try
+                {
+                    string x = hardScores[i];
+                }
+
+                catch
+                {
+                    hardScores.Add("");
+                }
             }
 
-            catch
-            {
-                easyScores.Add("");
-            }
+            scores[0].text = easyScores[0];
+            scores[1].text = easyScores[1];
+            scores[2].text = easyScores[2];
+            scores[3].text = easyScores[3];
+            scores[4].text = easyScores[4];
 
-            try
-            {
-                string x = mediumScores[i];
-            }
+            scores[5].text = mediumScores[0];
+            scores[6].text = mediumScores[1];
+            scores[7].text = mediumScores[2];
+            scores[8].text = mediumScores[3];
+            scores[9].text = mediumScores[4];
 
-            catch
-            {
-                mediumScores.Add("");
-            }
-
-            try
-            {
-                string x = hardScores[i];
-            }
-
-            catch
-            {
-                hardScores.Add("");
-            }
+            scores[10].text = hardScores[0];
+            scores[11].text = hardScores[1];
+            scores[12].text = hardScores[2];
+            scores[13].text = hardScores[3];
+            scores[14].text = hardScores[4];
         }
 
-        scores[0].text = easyScores[0];
-        scores[1].text = easyScores[1];
-        scores[2].text = easyScores[2];
-        scores[3].text = easyScores[3];
-        scores[4].text = easyScores[4];
+        catch
+        {
 
-        scores[5].text = mediumScores[0];
-        scores[6].text = mediumScores[1];
-        scores[7].text = mediumScores[2];
-        scores[8].text = mediumScores[3];
-        scores[9].text = mediumScores[4];
+        }
 
-        scores[10].text = hardScores[0];
-        scores[11].text = hardScores[1];
-        scores[12].text = hardScores[2];
-        scores[13].text = hardScores[3];
-        scores[14].text = hardScores[4];
-
-        
     }
 
     // Update is called once per frame

@@ -34,6 +34,11 @@ public class StartGame : MonoBehaviour
     public void Controls()
     {
         SceneManager.LoadScene("Controls");
-    } 
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
 
 }
