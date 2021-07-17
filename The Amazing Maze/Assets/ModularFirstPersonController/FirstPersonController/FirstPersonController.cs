@@ -112,7 +112,7 @@ public class FirstPersonController : MonoBehaviour
     public float speedReduction = .5f;
 
     // Internal Variables
-    private bool isCrouched = false;
+    public bool isCrouched = false;
     private Vector3 originalScale;
 
     #endregion
@@ -475,7 +475,7 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
-    private void Crouch()
+    public void Crouch()
     {
         // Stands player up to full height
         // Brings walkSpeed back up to original speed

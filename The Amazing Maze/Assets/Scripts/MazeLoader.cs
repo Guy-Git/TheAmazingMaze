@@ -13,6 +13,7 @@ public class MazeLoader : MonoBehaviour {
 	public GameObject Clock;
 	public Text points;
 	public GameObject trophy;
+	public GameObject QuestionMark;
 
 	private MazeCell[,] mazeCells;
 
@@ -79,6 +80,7 @@ public class MazeLoader : MonoBehaviour {
 		mazeRows = Properties.rows;
 		mazeColumns = Properties.cols;
 		GameObject coin;
+		GameObject questionMark;
 		GameObject collectableClock;
 		mazeCells = new MazeCell[mazeRows,mazeColumns];
 		//Random rnd = new Random();
@@ -96,6 +98,7 @@ public class MazeLoader : MonoBehaviour {
 				int putChessFloor = Random.Range(0, 7);
 				int putLowCeiling = Random.Range(0, 7);
 				int putClock = Random.Range(0, 8);
+				int putQuestionMark = Random.Range(0, 8);
 
 				if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike == 0)
 				{
@@ -138,7 +141,15 @@ public class MazeLoader : MonoBehaviour {
 					mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
 				}
 
-				if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && Properties.chosenMode == 0 && putLowCeiling != 0)
+				if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && Properties.chosenMode == 0 && putLowCeiling != 0 && putQuestionMark == 0)
+				{
+					questionMark = Instantiate(QuestionMark, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity);
+					questionMark.gameObject.AddComponent<BoxCollider>();
+					questionMark.gameObject.GetComponent<Collider>().isTrigger = true;
+					questionMark.gameObject.AddComponent<QuestionMarkBehaviour>();
+				}
+
+				else if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && Properties.chosenMode == 0 && putLowCeiling != 0)
 				{
 					coin = Instantiate(Coin, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity);
 					coin.gameObject.AddComponent<BoxCollider>();
