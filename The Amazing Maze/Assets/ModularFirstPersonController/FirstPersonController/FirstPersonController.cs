@@ -532,6 +532,12 @@ public class FirstPersonController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if(collision.gameObject.CompareTag("SlowFloor"))
+        {
+            walkSpeed /= 2.5f;
+            sprintSpeed /= 2.5f;
+        }
+
         if (collision.gameObject.CompareTag("wall"))
             wallTouched = true;
 
@@ -550,6 +556,12 @@ public class FirstPersonController : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
+        if (collision.gameObject.CompareTag("SlowFloor"))
+        {
+            walkSpeed *= 2.5f;
+            sprintSpeed *= 2.5f;
+        }
+
         if (collision.gameObject.CompareTag("wall"))
             wallTouched = false;
 

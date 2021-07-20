@@ -15,6 +15,7 @@ public class MazeLoader : MonoBehaviour
     public Text points;
     public GameObject trophy;
     public GameObject QuestionMark;
+    public GameObject SlowFloor;
 
     private MazeCell[,] mazeCells;
 
@@ -104,6 +105,7 @@ public class MazeLoader : MonoBehaviour
                 int putClock = Random.Range(0, 8);
                 int putQuestionMark = Random.Range(0, 9);
                 int putClosingWalls = Random.Range(0, 9);
+                int putSlowFloor = Random.Range(0, 10);
 
                 if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike == 0)
                 {
@@ -137,6 +139,14 @@ public class MazeLoader : MonoBehaviour
                     fallWall.transform.Rotate(Vector3.up * 90f);
                 }
 
+
+                else if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike != 0 && putLowCeiling != 0 && putChessFloor != 0 && putSlowFloor == 0)
+                {
+                    mazeCells[r, c] = new MazeCell();
+                    mazeCells[r, c].floor = Instantiate(SlowFloor, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity);
+                    mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
+                    mazeCells[r, c].floor.tag = "SlowFloor";
+                }
 
                 else
                 {
