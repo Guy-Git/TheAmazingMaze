@@ -10,4 +10,5 @@ public class Properties
     public static int time;
     public static bool pPress;
     public static int points;
+    public static int mazeType;
 }

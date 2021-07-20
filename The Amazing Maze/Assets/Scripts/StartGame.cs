@@ -21,6 +21,15 @@ public class StartGame : MonoBehaviour
         Properties.chosenMode = 1;
     }
 
+    public void LinesMaze()
+    { 
+        SceneManager.LoadScene("HallMazeScene");
+        Properties.mazeType = 1;
+        Properties.rows = 11;
+        Properties.cols = 11;
+
+    }
+
     public void RegularScoreboard()
     {
         SceneManager.LoadScene("RegularScoreboard");

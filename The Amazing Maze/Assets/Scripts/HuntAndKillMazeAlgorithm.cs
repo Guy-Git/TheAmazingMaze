@@ -16,42 +16,63 @@ public class HuntAndKillMazeAlgorithm : MazeAlgorithm {
 	}
 
 	private void HuntAndKill() {
+		Debug.Log("in hunt and kill");
 		mazeCells [currentRow, currentColumn].visited = true;
 
 		while (! courseComplete) {
 			Kill(); // Will run until it hits a dead end.
 			Hunt(); // Finds the next unvisited cell with an adjacent visited cell. If it can't find any, it sets courseComplete to true.
+	
 		}
 	}
 
 	private void Kill() {
-		while (RouteStillAvailable (currentRow, currentColumn)) {
-			int direction = Random.Range (1, 5);
-			//int direction = ProceduralNumberGenerator.GetNextNumber ();
 
-			if (direction == 1 && CellIsAvailable (currentRow - 1, currentColumn)) {
+		while (RouteStillAvailable(currentRow, currentColumn))
+		{
+			int direction;
+
+			if (Properties.mazeType == 1)
+			{
+				direction = ProceduralNumberGenerator.GetNextNumber();
+				Debug.Log("hello");
+			}
+			else
+			{
+				direction = Random.Range(1, 5);
+				//int direction = ProceduralNumberGenerator.GetNextNumber ();
+			}
+
+				if (direction == 1 && CellIsAvailable(currentRow - 1, currentColumn))
+			{
 				// North
-				DestroyWallIfItExists (mazeCells [currentRow, currentColumn].northWall);
-				DestroyWallIfItExists (mazeCells [currentRow - 1, currentColumn].southWall);
+				DestroyWallIfItExists(mazeCells[currentRow, currentColumn].northWall);
+				DestroyWallIfItExists(mazeCells[currentRow - 1, currentColumn].southWall);
 				currentRow--;
-			} else if (direction == 2 && CellIsAvailable (currentRow + 1, currentColumn)) {
+			}
+			else if (direction == 2 && CellIsAvailable(currentRow + 1, currentColumn))
+			{
 				// South
-				DestroyWallIfItExists (mazeCells [currentRow, currentColumn].southWall);
-				DestroyWallIfItExists (mazeCells [currentRow + 1, currentColumn].northWall);
+				DestroyWallIfItExists(mazeCells[currentRow, currentColumn].southWall);
+				DestroyWallIfItExists(mazeCells[currentRow + 1, currentColumn].northWall);
 				currentRow++;
-			} else if (direction == 3 && CellIsAvailable (currentRow, currentColumn + 1)) {
+			}
+			else if (direction == 3 && CellIsAvailable(currentRow, currentColumn + 1))
+			{
 				// east
-				DestroyWallIfItExists (mazeCells [currentRow, currentColumn].eastWall);
-				DestroyWallIfItExists (mazeCells [currentRow, currentColumn + 1].westWall);
+				DestroyWallIfItExists(mazeCells[currentRow, currentColumn].eastWall);
+				DestroyWallIfItExists(mazeCells[currentRow, currentColumn + 1].westWall);
 				currentColumn++;
-			} else if (direction == 4 && CellIsAvailable (currentRow, currentColumn - 1)) {
+			}
+			else if (direction == 4 && CellIsAvailable(currentRow, currentColumn - 1))
+			{
 				// west
-				DestroyWallIfItExists (mazeCells [currentRow, currentColumn].westWall);
-				DestroyWallIfItExists (mazeCells [currentRow, currentColumn - 1].eastWall);
+				DestroyWallIfItExists(mazeCells[currentRow, currentColumn].westWall);
+				DestroyWallIfItExists(mazeCells[currentRow, currentColumn - 1].eastWall);
 				currentColumn--;
 			}
 
-			mazeCells [currentRow, currentColumn].visited = true;
+			mazeCells[currentRow, currentColumn].visited = true;
 		}
 	}
 
