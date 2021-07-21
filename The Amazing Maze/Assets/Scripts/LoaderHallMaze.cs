@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class LoaderHallMaze : MonoBehaviour
 {
@@ -14,7 +15,12 @@ public class LoaderHallMaze : MonoBehaviour
     public Text points;
     private int currentRow = 0;
     private int currentCol = 0;
-
+    public GameObject SpikeFloor;
+    public GameObject ChessFloor;
+    public GameObject FallWall;
+    public GameObject Coin;
+    public GameObject QuestionMark;
+    public GameObject SlowFloor;
 
     void Start()
     {
@@ -63,20 +69,106 @@ public class LoaderHallMaze : MonoBehaviour
 
     private void InitializeHallMaze()
     {
+        GameObject coin;
         mazeRows = Properties.rows;
         mazeColumns = Properties.cols;
         mazeCells = new MazeCell[mazeRows, mazeColumns];
+        GameObject fallWall;
+        GameObject lowCeiling;
+        GameObject chessFloor;
+        GameObject questionMark;
 
         for (int r = 0; r < mazeRows; r++)
         {
             for (int c = 0; c < mazeColumns; c++)
             {
-           
-                mazeCells[r, c] = new MazeCell();
-                mazeCells[r, c].floor = Instantiate(wall, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity) as GameObject;
-                mazeCells[r, c].floor.name = "Floor " + r + "," + c;
-                mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
-              
+                int putSpike = Random.Range(0, 8);
+                int putChessFloor = Random.Range(0, 7);
+                int putLowCeiling = Random.Range(0, 7);
+                int putQuestionMark = Random.Range(0, 9);
+                int putClosingWalls = Random.Range(0, 9);
+                int putSlowFloor = Random.Range(0, 10);
+
+                if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike == 0)
+                {
+                    mazeCells[r, c] = new MazeCell();
+                    mazeCells[r, c].floor = Instantiate(SpikeFloor, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity) as GameObject;
+                    mazeCells[r, c].floor.name = "Spike Floor " + r + "," + c;
+                    mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
+                }
+
+                else if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike != 0 && putLowCeiling != 0 && putChessFloor == 0)
+                {
+                    // Chess Floor:
+                    mazeCells[r, c] = new MazeCell();
+                    mazeCells[r, c].floor = Instantiate(ChessFloor, new Vector3(r * size - 1.375f, -(size / 2f), c * size - 1.375f), Quaternion.identity);
+                    mazeCells[r, c].floor.name = "Chess Floor " + r + "," + c;
+                    mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
+
+                    // Fall Wall:
+                    // Floor - 
+                    fallWall = Instantiate(FallWall, new Vector3(r * size, -(size / 2f) - size, c * size), Quaternion.identity);
+                    fallWall.transform.Rotate(Vector3.right, 90f);
+                    // West - 
+                    fallWall = Instantiate(FallWall, new Vector3(r * size, -size, (c * size) - (size / 2f)), Quaternion.identity);
+                    // East - 
+                    fallWall = Instantiate(FallWall, new Vector3(r * size, -size, (c * size) + (size / 2f)), Quaternion.identity);
+                    // North - 
+                    fallWall = Instantiate(FallWall, new Vector3((r * size) - (size / 2f), -size, c * size), Quaternion.identity);
+                    fallWall.transform.Rotate(Vector3.up * 90f);
+                    // South - 
+                    fallWall = Instantiate(FallWall, new Vector3((r * size) + (size / 2f), -size, c * size), Quaternion.identity);
+                    fallWall.transform.Rotate(Vector3.up * 90f);
+                }
+
+                else if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike != 0 && putLowCeiling != 0 && putChessFloor != 0 && putSlowFloor == 0)
+                {
+                    mazeCells[r, c] = new MazeCell();
+                    mazeCells[r, c].floor = Instantiate(SlowFloor, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity);
+                    mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
+                    mazeCells[r, c].floor.tag = "SlowFloor";
+                }
+
+                else
+                {
+                    mazeCells[r, c] = new MazeCell();
+                    mazeCells[r, c].floor = Instantiate(wall, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity) as GameObject;
+                    mazeCells[r, c].floor.name = "Floor " + r + "," + c;
+                    mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
+                }
+
+                if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putLowCeiling != 0 && putQuestionMark == 0)
+                {
+                    questionMark = Instantiate(QuestionMark, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity);
+                    questionMark.gameObject.AddComponent<BoxCollider>();
+                    questionMark.gameObject.GetComponent<Collider>().isTrigger = true;
+                    questionMark.gameObject.AddComponent<QuestionMarkBehaviour>();
+                }
+
+                else if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putLowCeiling != 0)
+                {
+                    coin = Instantiate(Coin, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity);
+                    coin.gameObject.AddComponent<BoxCollider>();
+                    coin.gameObject.GetComponent<Collider>().isTrigger = true;
+                    coin.gameObject.AddComponent<CollectableBehaviour>();
+                }
+
+                if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike != 0 && putLowCeiling == 0)
+                {
+                    lowCeiling = Instantiate(wall, new Vector3(r * size, -0.6f, c * size), Quaternion.identity);
+                    lowCeiling.transform.Rotate(Vector3.right, 90f);
+                    lowCeiling = Instantiate(wall, new Vector3(r * size, 0f, c * size), Quaternion.identity);
+                    lowCeiling.transform.Rotate(Vector3.right, 90f);
+                    lowCeiling = Instantiate(wall, new Vector3(r * size, 0.6f, c * size), Quaternion.identity);
+                    lowCeiling.transform.Rotate(Vector3.right, 90f);
+                    lowCeiling = Instantiate(wall, new Vector3(r * size, 1.2f, c * size), Quaternion.identity);
+                    lowCeiling.transform.Rotate(Vector3.right, 90f);
+                    lowCeiling = Instantiate(wall, new Vector3(r * size, 1.8f, c * size), Quaternion.identity);
+                    lowCeiling.transform.Rotate(Vector3.right, 90f);
+                    lowCeiling = Instantiate(wall, new Vector3(r * size, 2.4f, c * size), Quaternion.identity);
+                    lowCeiling.transform.Rotate(Vector3.right, 90f);
+                }
+
                 if (c == 0)
                 {
                     mazeCells[r, c].westWall = Instantiate(wall, new Vector3(r * size, 0, (c * size) - (size / 2f)), Quaternion.identity) as GameObject;
@@ -96,8 +188,13 @@ public class LoaderHallMaze : MonoBehaviour
                 mazeCells[r, c].southWall = Instantiate(wall, new Vector3((r * size) + (size / 2f), 0, c * size), Quaternion.identity) as GameObject;
                 mazeCells[r, c].southWall.name = "South Wall " + r + "," + c;
                 mazeCells[r, c].southWall.transform.Rotate(Vector3.up * 90f);
-                
-        }
+
+                if (putClosingWalls == 0)
+                {
+                    mazeCells[r, c].southWall.gameObject.AddComponent<ClosingWallsBehaviour>();
+                    mazeCells[r, c].southWall.tag = "closingWall";
+                }
+            }
         }
     }
     private void HallCreating()

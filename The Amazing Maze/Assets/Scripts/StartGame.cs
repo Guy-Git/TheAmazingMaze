@@ -25,8 +25,8 @@ public class StartGame : MonoBehaviour
     { 
         SceneManager.LoadScene("HallMazeScene");
         Properties.mazeType = 1;
-        Properties.rows = 11;
-        Properties.cols = 11;
+        Properties.rows = 10;
+        Properties.cols = 10;
 
     }
 
