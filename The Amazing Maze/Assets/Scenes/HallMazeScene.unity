@@ -2735,6 +2735,7 @@ MonoBehaviour:
   Coin: {fileID: 919132149155446097, guid: dd227926a6d2845309fe65bd946778c9, type: 3}
   QuestionMark: {fileID: 919132149155446097, guid: eb10258dbf56c9a4ba5033825131f79b, type: 3}
   SlowFloor: {fileID: 1996654621595126002, guid: 204bb7ef5fd8b07418615ff917c58b08, type: 3}
+  DoublePointes: {fileID: 919132149155446097, guid: f3355eb3eb90e44e897b54fa999abb40, type: 3}
 --- !u!4 &1746754285
 Transform:
   m_ObjectHideFlags: 0

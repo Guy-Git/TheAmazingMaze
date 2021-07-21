@@ -53,7 +53,10 @@ public class CollectableBehaviour : MonoBehaviour
     void OnTriggerEnter(Collider collider)
     {
         if (Properties.chosenMode == 0)
-            Properties.points += 10;
+            if (Properties.isDouble == false)
+                Properties.points += 10;
+            else
+                Properties.points += 20;
 
         else
             Timer.timeRemaining += 10;

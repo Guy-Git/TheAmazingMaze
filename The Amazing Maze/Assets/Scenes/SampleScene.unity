@@ -2649,7 +2649,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1695645556}
-        m_TargetAssemblyTypeName: BackToMenu, Assembly-CSharp
+        m_TargetAssemblyTypeName: backToMenu, Assembly-CSharp
         m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:

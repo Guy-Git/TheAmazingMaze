@@ -21,6 +21,7 @@ public class LoaderHallMaze : MonoBehaviour
     public GameObject Coin;
     public GameObject QuestionMark;
     public GameObject SlowFloor;
+    public GameObject DoublePointes;
 
     void Start()
     {
@@ -77,6 +78,7 @@ public class LoaderHallMaze : MonoBehaviour
         GameObject lowCeiling;
         GameObject chessFloor;
         GameObject questionMark;
+        GameObject doublePointes;
 
         for (int r = 0; r < mazeRows; r++)
         {
@@ -88,6 +90,7 @@ public class LoaderHallMaze : MonoBehaviour
                 int putQuestionMark = Random.Range(0, 9);
                 int putClosingWalls = Random.Range(0, 9);
                 int putSlowFloor = Random.Range(0, 10);
+                int putDoublePointes = Random.Range(0, 10);
 
                 if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike == 0)
                 {
@@ -143,6 +146,14 @@ public class LoaderHallMaze : MonoBehaviour
                     questionMark.gameObject.AddComponent<BoxCollider>();
                     questionMark.gameObject.GetComponent<Collider>().isTrigger = true;
                     questionMark.gameObject.AddComponent<QuestionMarkBehaviour>();
+                }
+
+                else if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putLowCeiling != 0 && putDoublePointes == 0)
+                {
+                    doublePointes = Instantiate(DoublePointes, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity);
+                    doublePointes.gameObject.AddComponent<BoxCollider>();
+                    doublePointes.gameObject.GetComponent<Collider>().isTrigger = true;
+                    doublePointes.gameObject.AddComponent<DoublePointesBehaviour>();
                 }
 
                 else if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putLowCeiling != 0)
