@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class BackToMenu : MonoBehaviour
+public class backToMenu : MonoBehaviour
 {
     public Text name;
     // Start is called before the first frame update
@@ -45,8 +45,6 @@ public class BackToMenu : MonoBehaviour
                 regularHighscores.hardScores.Add(name.text + " " + Properties.points.ToString());
 
             string scores = JsonUtility.ToJson(regularHighscores);
-            //Debug.Log("KAKI");
-            //Debug.Log(scores);
 
             PlayerPrefs.SetString("RegularHighscores", scores);
             SceneManager.LoadScene("RegularScoreboard");

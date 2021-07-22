@@ -11,4 +11,5 @@ public class Properties
     public static bool pPress;
     public static int points;
     public static int mazeType;
+    public static bool isDouble;
 }
