@@ -16,6 +16,7 @@ public class MazeLoader : MonoBehaviour
     public GameObject trophy;
     public GameObject QuestionMark;
     public GameObject SlowFloor;
+    public GameObject AntiGravFloor;
 
     private MazeCell[,] mazeCells;
 
@@ -106,6 +107,8 @@ public class MazeLoader : MonoBehaviour
                 int putQuestionMark = Random.Range(0, 9);
                 int putClosingWalls = Random.Range(0, 9);
                 int putSlowFloor = Random.Range(0, 10);
+                int putIceFloor = Random.Range(0, 10);
+                
 
                 if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike == 0)
                 {
@@ -146,6 +149,13 @@ public class MazeLoader : MonoBehaviour
                     mazeCells[r, c].floor = Instantiate(SlowFloor, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity);
                     mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
                     mazeCells[r, c].floor.tag = "SlowFloor";
+                }
+
+                else if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike != 0 && putLowCeiling != 0 && putChessFloor != 0 && putSlowFloor != 0 && putIceFloor == 0)
+                {
+                    mazeCells[r, c] = new MazeCell();
+                    mazeCells[r, c].floor = Instantiate(AntiGravFloor, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity);
+                    mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
                 }
 
                 else
@@ -201,11 +211,22 @@ public class MazeLoader : MonoBehaviour
                     mazeCells[r, c].westWall = Instantiate(wall, new Vector3(r * size, 0, (c * size) - (size / 2f)), Quaternion.identity) as GameObject;
                     mazeCells[r, c].westWall.name = "West Wall " + r + "," + c;
                     mazeCells[r, c].westWall.tag = "wall";
+
+                    mazeCells[r, c].westWall.transform.localScale = new Vector3(mazeCells[r, c].westWall.transform.localScale.x,
+                    mazeCells[r, c].westWall.transform.localScale.y * 2,
+                    mazeCells[r, c].westWall.transform.localScale.z); 
                 }
 
                 mazeCells[r, c].eastWall = Instantiate(wall, new Vector3(r * size, 0, (c * size) + (size / 2f)), Quaternion.identity) as GameObject;
                 mazeCells[r, c].eastWall.name = "East Wall " + r + "," + c;
                 mazeCells[r, c].eastWall.tag = "wall";
+
+                if (c == Properties.cols - 1)
+                {
+                    mazeCells[r, c].eastWall.transform.localScale = new Vector3(mazeCells[r, c].eastWall.transform.localScale.x,
+                    mazeCells[r, c].eastWall.transform.localScale.y * 2,
+                    mazeCells[r, c].eastWall.transform.localScale.z);
+                }
 
                 if (r == 0)
                 {
@@ -214,12 +235,24 @@ public class MazeLoader : MonoBehaviour
                     mazeCells[r, c].northWall.transform.Rotate(Vector3.up * 90f);
                     mazeCells[r, c].northWall.tag = "wall";
 
+                    mazeCells[r, c].northWall.transform.localScale = new Vector3(mazeCells[r, c].northWall.transform.localScale.x,
+                    mazeCells[r, c].northWall.transform.localScale.y * 2,
+                    mazeCells[r, c].northWall.transform.localScale.z);
+
                 }
 
                 mazeCells[r, c].southWall = Instantiate(wall, new Vector3((r * size) + (size / 2f), 0, c * size), Quaternion.identity) as GameObject;
                 mazeCells[r, c].southWall.name = "South Wall " + r + "," + c;
                 mazeCells[r, c].southWall.transform.Rotate(Vector3.up * 90f);
                 mazeCells[r, c].southWall.tag = "wall";
+
+                if (r == Properties.rows - 1)
+                {
+                    mazeCells[r, c].southWall.transform.localScale = new Vector3(mazeCells[r, c].southWall.transform.localScale.x,
+                    mazeCells[r, c].southWall.transform.localScale.y * 2,
+                    mazeCells[r, c].southWall.transform.localScale.z);
+                }
+                    
 
                 if (putClosingWalls == 0)
                 {

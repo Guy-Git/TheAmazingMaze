@@ -134,6 +134,8 @@ public class FirstPersonController : MonoBehaviour
     bool wallTouched = false;
     bool closingTouched = false;
 
+    bool icyFloor = false;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -382,6 +384,7 @@ public class FirstPersonController : MonoBehaviour
             {
                 isWalking = true;
             }
+
             else
             {
                 isWalking = false;
@@ -532,6 +535,12 @@ public class FirstPersonController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+
+        if(collision.gameObject.CompareTag("antiGrav"))
+        {
+            jumpPower *= 2;
+        }
+
         if(collision.gameObject.CompareTag("SlowFloor"))
         {
             walkSpeed /= 2.5f;
@@ -556,6 +565,12 @@ public class FirstPersonController : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
+
+        if (collision.gameObject.CompareTag("antiGrav"))
+        {
+            jumpPower /= 2;
+        }
+
         if (collision.gameObject.CompareTag("SlowFloor"))
         {
             walkSpeed *= 2.5f;

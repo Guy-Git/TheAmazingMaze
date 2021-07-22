@@ -8,6 +8,7 @@ TagManager:
   - closingWall
   - SlowFloor
   - wall
+  - antiGrav
   layers:
   - Default
   - TransparentFX
