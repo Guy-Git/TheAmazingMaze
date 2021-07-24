@@ -20,14 +20,17 @@ public class FallBehaviour : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        losePanel = GameObject.Find("Canvas").transform.Find("losePanel").gameObject;
-        losePanel.SetActive(true);
-        FirstPersonController fpc = GameObject.Find("FirstPersonController").GetComponent<FirstPersonController>();
-        fpc.cameraCanMove = false;
-        fpc.playerCanMove = false;
-        Cursor.lockState = CursorLockMode.None;
+        if (!Properties.isInvincible)
+        {
+            losePanel = GameObject.Find("Canvas").transform.Find("losePanel").gameObject;
+            losePanel.SetActive(true);
+            FirstPersonController fpc = GameObject.Find("FirstPersonController").GetComponent<FirstPersonController>();
+            fpc.cameraCanMove = false;
+            fpc.playerCanMove = false;
+            Cursor.lockState = CursorLockMode.None;
 
-        Debug.Log("LOOSER!");
+            Debug.Log("LOOSER!");
+        }
 
     }
 }

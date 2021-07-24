@@ -553,7 +553,7 @@ public class FirstPersonController : MonoBehaviour
         else if (collision.gameObject.CompareTag("closingWall"))
             closingTouched = true;
 
-        if (wallTouched && closingTouched)
+        if (wallTouched && closingTouched && !Properties.isInvincible)
         {
             GameObject losePanel = GameObject.Find("Canvas").transform.Find("losePanel").gameObject;
             losePanel.SetActive(true);

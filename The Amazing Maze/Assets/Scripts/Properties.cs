@@ -12,4 +12,5 @@ public class Properties
     public static int points;
     public static int mazeType;
     public static bool isDouble;
+    public static bool isInvincible;
 }
