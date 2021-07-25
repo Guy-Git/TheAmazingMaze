@@ -2743,6 +2743,8 @@ MonoBehaviour:
   SlowFloor: {fileID: 1996654621595126002, guid: 204bb7ef5fd8b07418615ff917c58b08, type: 3}
   AntiGravFloor: {fileID: 7745124521957603520, guid: 8300956d0a53c7b459bbf92521157992, type: 3}
   DoublePointes: {fileID: 919132149155446097, guid: f3355eb3eb90e44e897b54fa999abb40, type: 3}
+  Invincibility: {fileID: 919132149155446097, guid: 8592bd3363c977e42bcc2e56ddcafb6f, type: 3}
+  Stairs: {fileID: 6758124633651360724, guid: 472ebd48623636f46adff9c413772287, type: 3}
 --- !u!4 &1746754285
 Transform:
   m_ObjectHideFlags: 0

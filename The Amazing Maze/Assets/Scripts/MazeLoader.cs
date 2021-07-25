@@ -18,6 +18,8 @@ public class MazeLoader : MonoBehaviour
     public GameObject SlowFloor;
     public GameObject AntiGravFloor;
     public GameObject DoublePointes;
+    public GameObject Invincibility;
+    public GameObject Stairs;
     private MazeCell[,] mazeCells;
 
     // Use this for initialization
@@ -94,6 +96,8 @@ public class MazeLoader : MonoBehaviour
         GameObject chessFloor;
         GameObject fallWall;
         GameObject doublePointes;
+        GameObject invincibility;
+        GameObject stairs;
 
 
         for (int r = 0; r < mazeRows; r++)
@@ -101,15 +105,17 @@ public class MazeLoader : MonoBehaviour
             for (int c = 0; c < mazeColumns; c++)
             {
 
-                int putSpike = Random.Range(0, 8);
-                int putChessFloor = Random.Range(0, 7);
-                int putLowCeiling = Random.Range(0, 7);
-                int putClock = Random.Range(0, 8);
-                int putQuestionMark = Random.Range(0, 9);
-                int putClosingWalls = Random.Range(0, 9);
+                int putSpike = Random.Range(0, 10);
+                int putChessFloor = Random.Range(0, 10);
+                int putLowCeiling = Random.Range(0, 10);
+                int putClock = Random.Range(0, 10);
+                int putQuestionMark = Random.Range(0, 10);
+                int putClosingWalls = Random.Range(0, 10);
                 int putSlowFloor = Random.Range(0, 10);
                 int putIceFloor = Random.Range(0, 10);
                 int putDoublePointes = Random.Range(0, 10);
+                int putInvincibility = Random.Range(0, 10);
+                int putStairs = Random.Range(0, 10);
 
 
                 if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike == 0)
@@ -160,6 +166,13 @@ public class MazeLoader : MonoBehaviour
                     mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
                 }
 
+                else if ((!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putSpike != 0 && putLowCeiling != 0 && putChessFloor != 0 && putSlowFloor != 0 && putIceFloor != 0 && putStairs == 0))
+                {
+                    mazeCells[r, c] = new MazeCell();
+                    mazeCells[r, c].floor = Instantiate(Stairs, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity);
+                    mazeCells[r, c].floor.transform.Rotate(Vector3.right, 270f);
+                }
+
                 else
                 {
                     mazeCells[r, c] = new MazeCell();
@@ -175,12 +188,21 @@ public class MazeLoader : MonoBehaviour
                     questionMark.gameObject.GetComponent<Collider>().isTrigger = true;
                     questionMark.gameObject.AddComponent<QuestionMarkBehaviour>();
                 }
+
                 else if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putLowCeiling != 0 && putDoublePointes == 0)
                 {
                     doublePointes = Instantiate(DoublePointes, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity);
                     doublePointes.gameObject.AddComponent<BoxCollider>();
                     doublePointes.gameObject.GetComponent<Collider>().isTrigger = true;
                     doublePointes.gameObject.AddComponent<DoublePointesBehaviour>();
+                }
+
+                else if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && putLowCeiling != 0 &&putInvincibility == 0)
+                {
+                    invincibility = Instantiate(Invincibility, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity);
+                    invincibility.gameObject.AddComponent<BoxCollider>();
+                    invincibility.gameObject.GetComponent<Collider>().isTrigger = true;
+                    invincibility.gameObject.AddComponent<InvincibleBehaviour>();
                 }
 
                 else if (!(r == 0 && c == 0) && !(r == mazeRows - 1 && c == mazeColumns - 1) && Properties.chosenMode == 0 && putLowCeiling != 0)

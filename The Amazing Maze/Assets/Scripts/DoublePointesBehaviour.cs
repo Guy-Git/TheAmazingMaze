@@ -4,16 +4,14 @@ using System.Collections;
 public class DoublePointesBehaviour : MonoBehaviour
 {
     Time time;
-    bool timeIsRunning;
-    float timeRemaining;
+    static bool timeIsRunning = false;
+    static float timeRemaining = 20;
     bool goDown;
     // Use this for initialization
     void Start()
     {
-        timeIsRunning = true;
-        timeRemaining = 4;
         //this.transform.eulerAngles = new Vector3(90, 90, Random.Range(0, 180));
-        this.transform.position = new Vector3(this.transform.position.x, -0.7f, this.transform.position.z);
+        this.transform.position = new Vector3(this.transform.position.x, -1f, this.transform.position.z);
         this.transform.localScale = new Vector3(0.08f, 0.08f, 0.1f);
     }
 
@@ -22,6 +20,7 @@ public class DoublePointesBehaviour : MonoBehaviour
     {
         this.transform.Rotate(0, 1, 0, Space.Self);
 
+        Debug.Log(timeIsRunning);
         if (timeIsRunning)
         {
             if (timeRemaining > 0)
@@ -41,6 +40,8 @@ public class DoublePointesBehaviour : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
+        timeIsRunning = true;
+        timeRemaining = 20;
         Properties.isDouble = true;
         this.gameObject.SetActive(false);
 
