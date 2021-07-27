@@ -24,10 +24,18 @@ public class StartGame : MonoBehaviour
     public void LinesMaze()
     { 
         SceneManager.LoadScene("HallMazeScene");
-        Properties.mazeType = 1;
+        Properties.mazeType = 0;
         Properties.rows = 10;
         Properties.cols = 10;
 
+    }
+
+    public void SnakeMaze()
+    {
+        SceneManager.LoadScene("SnakeMaze");
+        Properties.mazeType = 1;
+        Properties.rows = 10;
+        Properties.cols = 10;
     }
 
     public void RegularScoreboard()

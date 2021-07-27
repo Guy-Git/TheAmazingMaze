@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HallMazeScene.unity
     guid: 05e8767bf94084872b1849d944da789c
+  - enabled: 1
+    path: Assets/Scenes/SnakeMaze.unity
+    guid: 84bf43dd7ddb2457bb341ad233a25b0a
   m_configObjects: {}

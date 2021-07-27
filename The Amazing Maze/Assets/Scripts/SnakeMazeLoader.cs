@@ -1,11 +1,8 @@
-﻿using System;
+﻿using UnityEngine;
 using System.Collections;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
-public class LoaderHallMaze : MonoBehaviour
+public class SnakeMazeLoader : MonoBehaviour
 {
     public int mazeRows, mazeColumns;
     public GameObject wall;
@@ -25,10 +22,10 @@ public class LoaderHallMaze : MonoBehaviour
     public GameObject AntiGravFloor;
     public GameObject Invincibility;
     public GameObject Stairs;
-
+    // Use this for initialization
     void Start()
     {
-        InitializeHallMaze();
+        InitializeSnakeMaze();
         int r = mazeRows - 1;
         int c = mazeColumns - 1;
         Properties.pPress = false;
@@ -39,49 +36,15 @@ public class LoaderHallMaze : MonoBehaviour
         trophy.gameObject.AddComponent<Win>();
 
         trophy.name = "Trophy " + r + "," + c;
-
-        if (Properties.mazeType == 0)
-        {
-            HallCreating();
-        }
-        else
-        {
-            Debug.Log("SNAKE");
-            SnakeHallCreating();
-        }
     }
 
-
+    // Update is called once per frame
     void Update()
     {
-        trophy.gameObject.transform.Rotate(0, 1, 0, Space.Self);
-        points.text = Properties.points.ToString();
 
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            GameObject pausePanel = GameObject.Find("Canvas").transform.Find("PauseMenu").gameObject;
-            FirstPersonController fpc = GameObject.Find("FirstPersonController").GetComponent<FirstPersonController>();
-            if (!Properties.pPress)
-            {
-                Properties.pPress = true;
-                pausePanel.SetActive(true);
-                fpc.cameraCanMove = false;
-                fpc.playerCanMove = false;
-                Cursor.lockState = CursorLockMode.None;
-            }
-            else
-            {
-                Properties.pPress = false;
-                pausePanel.SetActive(false);
-                fpc.cameraCanMove = true;
-                fpc.playerCanMove = true;
-                Cursor.lockState = CursorLockMode.Locked;
-            }
-
-        }
     }
 
-    private void InitializeHallMaze()
+    private void InitializeSnakeMaze()
     {
         GameObject coin;
         mazeRows = Properties.rows;
@@ -102,6 +65,7 @@ public class LoaderHallMaze : MonoBehaviour
                 int putSpike = Random.Range(0, 10);
                 int putChessFloor = Random.Range(0, 10);
                 int putLowCeiling = Random.Range(0, 10);
+                int putClock = Random.Range(0, 10);
                 int putQuestionMark = Random.Range(0, 10);
                 int putClosingWalls = Random.Range(0, 10);
                 int putSlowFloor = Random.Range(0, 10);
@@ -227,7 +191,7 @@ public class LoaderHallMaze : MonoBehaviour
                     mazeCells[r, c].westWall.transform.localScale = new Vector3(mazeCells[r, c].westWall.transform.localScale.x,
                     mazeCells[r, c].westWall.transform.localScale.y * 2,
                     mazeCells[r, c].westWall.transform.localScale.z);
-                
+
                 }
 
                 mazeCells[r, c].eastWall = Instantiate(wall, new Vector3(r * size, 0, (c * size) + (size / 2f)), Quaternion.identity) as GameObject;
@@ -272,12 +236,14 @@ public class LoaderHallMaze : MonoBehaviour
                     mazeCells[r, c].southWall.tag = "closingWall";
                 }
             }
-        }
+        
     }
 
+    }
     private void HallCreating()
     {
         int direction = UnityEngine.Random.Range(0, 2);
+        Debug.Log(direction);
         if (direction == 0)// halls of the maze going to be horizontal
         {
             while (currentRow < mazeRows && currentCol < mazeColumns)
@@ -321,109 +287,6 @@ public class LoaderHallMaze : MonoBehaviour
                 currentRow++;
             }
         }
-
-    }
-
-    private void SnakeHallCreating()
-    {
-
-        while (currentRow < mazeRows && currentCol < mazeColumns)
-        {
-
-            if ((currentCol < mazeColumns / 2) && currentRow != mazeRows - 1)
-            {
-
-                DestroyWallIfItExists(mazeCells[currentRow, currentCol].southWall);
-
-            }
-
-            else if (currentCol == mazeColumns / 2 && currentRow != mazeRows - 1)
-            {
-                currentRow++;
-                currentCol = -1;
-
-            }
-
-            if (currentCol == mazeColumns / 2 && currentRow == mazeRows - 1)
-            {
-                for (int i = 0; i < (mazeColumns / 2); i++)
-                {
-                    if (i % 2 == 0)
-                    {
-                        DestroyWallIfItExists(mazeCells[mazeColumns - 1, i].eastWall);
-                    }
-                    else
-                    {
-                        DestroyWallIfItExists(mazeCells[0, i].eastWall);
-
-                    }
-                }
-            }
-            currentCol++;
-        }
-
-
-        currentCol = mazeColumns / 2;
-        currentRow = 0;
-
-        while (currentRow < mazeRows && currentCol < mazeColumns)
-        {
-
-            if ((currentCol >= mazeColumns / 2) && currentRow != mazeRows - 1)
-            {
-                if (currentCol != mazeRows - 1)
-                    DestroyWallIfItExists(mazeCells[currentRow, currentCol].eastWall);
-            }
-
-            else if (currentRow == mazeRows - 1 && currentCol != mazeRows - 1)
-            {
-                DestroyWallIfItExists(mazeCells[currentRow, currentCol].eastWall);
-                Debug.Log(currentRow);
-                currentCol++;
-                currentRow = -1;
-
-
-            }
-            if (currentCol == mazeColumns - 1 && currentRow == mazeRows - 1)
-            {
-                for (int i = mazeColumns / 2; i < mazeColumns - 1; i++)
-                {
-                    if (i % 2 == 0)
-                    {
-                        DestroyWallIfItExists(mazeCells[mazeColumns - 1, i].eastWall);
-                    }
-                    else
-                    {
-                        DestroyWallIfItExists(mazeCells[0, i].eastWall);
-
-                    }
-                }
-            }
-            currentRow++;
-        }
-
-        for (int i = 0; i < mazeRows ; i++)
-        { 
-            mazeCells[i, 6].eastWall = Instantiate(wall, new Vector3(i * size, 0, (6 * size) - (size / 2f)), Quaternion.identity) as GameObject;
-            mazeCells[i, 6].eastWall.name = "east Wall " + i + "," + '6';
-            mazeCells[i, 6].eastWall.tag = "wall";
-            if (i != mazeRows - 1)
-                DestroyWallIfItExists(mazeCells[i, 5].southWall);
-        }
-        DestroyWallIfItExists(mazeCells[0, 6].eastWall);
-
-        for (int i = 0; i < mazeRows - 1 ; i++)
-        {
-            if (i % 2 == 0)
-            {
-                DestroyWallIfItExists(mazeCells[i, mazeColumns -1].southWall);
-            }
-            else
-            {
-                DestroyWallIfItExists(mazeCells[i, 6].southWall);
-
-            }
-        }
     }
 
     private void DestroyWallIfItExists(GameObject wall)
@@ -434,4 +297,4 @@ public class LoaderHallMaze : MonoBehaviour
         }
     }
 
-}   
+}
