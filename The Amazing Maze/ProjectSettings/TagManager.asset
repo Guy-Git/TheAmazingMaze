@@ -9,6 +9,7 @@ TagManager:
   - SlowFloor
   - wall
   - antiGrav
+  - high wall
   layers:
   - Default
   - TransparentFX

@@ -167,6 +167,7 @@ MonoBehaviour:
   crouchKey: 306
   crouchHeight: 0.75
   speedReduction: 0.5
+  isCrouched: 0
   enableHeadBob: 1
   joint: {fileID: 4459864851508666808}
   bobSpeed: 10
@@ -382,6 +383,7 @@ GameObject:
   - component: {fileID: 4459864851310106429}
   - component: {fileID: 4459864851310106426}
   - component: {fileID: 4459864851310106427}
+  - component: {fileID: 192594617355409129}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -455,6 +457,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4459864851310106424}
   m_Enabled: 1
+--- !u!114 &192594617355409129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459864851310106424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d943e41a266c436f8bc491ff45b101e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4459864851397454630
 GameObject:
   m_ObjectHideFlags: 0
