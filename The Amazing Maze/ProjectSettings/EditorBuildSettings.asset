@@ -27,6 +27,12 @@ EditorBuildSettings:
     path: Assets/Scenes/HallMazeScene.unity
     guid: 05e8767bf94084872b1849d944da789c
   - enabled: 1
+    path: Assets/Scenes/Scoreboards.unity
+    guid: eea929a429e3a31409f3d129a1fce215
+  - enabled: 1
     path: Assets/Scenes/SnakeMaze.unity
     guid: 84bf43dd7ddb2457bb341ad233a25b0a
+  - enabled: 1
+    path: Assets/Scenes/PlayModes.unity
+    guid: 165ba37303045ba468afb3652794086b
   m_configObjects: {}

@@ -53,6 +53,15 @@ public class StartGame : MonoBehaviour
         SceneManager.LoadScene("Controls");
     }
 
+    public void PlayModes()
+    {
+        SceneManager.LoadScene("PlayModes");
+    }
+
+    public void Scoreboards()
+    {
+        SceneManager.LoadScene("Scoreboards");
+    }
     public void Exit()
     {
         Application.Quit();
