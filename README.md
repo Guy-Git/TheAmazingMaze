@@ -1,5 +1,19 @@
 # **The Amazing Maze**
 
+**Background:**
+
+This is a project made by us, Opal and Guy, as part of the lab course in computer graphics from the Department of Computer Science at the University of Haifa.
+
+We chose to do a maze game.
+
+We chose to make a maze game because it is a classic game that everyone is familiar with and as children we did not have games at the level we have today, a familiar game at the time was the maze game, we wanted to make our own take on this classic in a more modern and challenging way.
+
+During our degree we became familiar with different algorithms for solving a maze (e.g. DFS) and when we were looking for ideas for game implementation that would be our project we were inspired by different areas we learned.
+
+Throughout our lives we have played many video games and we see it as a hobby but we were foreign to the world of game creation and development, we wanted to experience behind-the-scenes game development, and develop our abilities in other areas that intrigue us and may be relevant down the road.
+
+
+
 **Main idea:**
 
 The idea of our game is familiar in every home!
@@ -260,6 +274,8 @@ The free objects have been downloaded from all sorts of sites like turbo squid a
 **Working methodologies‪:**
 
 Work in pairs with full cooperation and yet division into tasks, as mentioned, managing the versions with Git and tracking the remaining tasks, those performed, and managing a time log (a type of backlog) according to google sheets‪.
+
+Google Sheets URL: 
 
  
 
